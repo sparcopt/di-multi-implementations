@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Application.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace Presentation.WebAPI.Controllers
 {
@@ -10,6 +9,34 @@ namespace Presentation.WebAPI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly IService service;
+        private readonly IService<string> genericStringService;
+        private readonly IEnumerable<IService> services;
+
+        // Default injection
+        public ValuesController(IService service)
+        {
+            this.service = service;
+        }
+
+        // Default injection
+        //public ValuesController(IService<string> genericStringService)
+        //{
+        //    this.genericStringService = genericStringService;
+        //}
+
+        // Delegate injection
+        //public ValuesController(Func<ServiceEnum, IService> serviceResolver)
+        //{
+        //    this.service = serviceResolver(ServiceEnum.C);
+        //}
+
+        // Default injection with IEnumerable
+        //public ValuesController(IEnumerable<IService> services)
+        //{
+        //    this.services = services;
+        //}
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
